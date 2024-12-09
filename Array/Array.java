@@ -201,6 +201,33 @@ public class Array {
     return trappedWather;
   }
 
+  // TRAPPING RAIN WATHER 2
+  public static int trappingRainWather2(int[] height) {
+    // LEFT MAX
+    int[] leftMax = new int[height.length];
+    leftMax[0] = height[0];
+    for (int i = 1; i < height.length; i++) {
+      leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+    }
+
+    // RIGHT MAX
+    int[] rightMax = new int[height.length];
+    rightMax[height.length - 1] = height[height.length - 1];
+    for (int i = height.length - 2; i >= 0; i--) {
+      rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+    }
+
+    int trappedRainWather = 0;
+    
+    // LOOP
+    for (int i = 0; i < height.length; i++) {
+      int watherLevel = Math.min(leftMax[i], rightMax[i]);
+      trappedRainWather += watherLevel - height[i];
+    }
+
+    return trappedRainWather;
+  }
+
   public static void main(String[] args) {
     // ---- NUMBER SEARCH
     // int[] number = { 2, 4, 6, 8, 10, 12, 14, 16, 18 };
@@ -250,7 +277,10 @@ public class Array {
     // System.out.println("MAX = " + kadaneAlgorithm(arr));
 
     // TRAPPING RAIN WATHER
-    int height[] = { 4, 2, 0, 6, 3, 2, 5 };
-    System.out.println(trappedRainWather(height));
+    // int height[] = { 4, 2, 0, 6, 3, 2, 5 };
+    // System.out.println(trappedRainWather(height));
+
+    int[] height = { 8, 1, 9, 4, 3, 5, 6 };
+    System.out.println(trappingRainWather2(height));
   }
 }
