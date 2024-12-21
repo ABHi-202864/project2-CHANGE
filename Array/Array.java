@@ -201,6 +201,36 @@ public class Array {
     return trappedWather;
   }
 
+  public static int buyAndSellStocks(int[] prices) {
+    int buyPrice = Integer.MAX_VALUE;
+    int maxProfit = 0;
+
+    for (int i = 0; i < prices.length; i++) {
+      if (buyPrice < prices[i]) {
+        int profit = prices[i] - buyPrice;
+        maxProfit = Math.max(maxProfit, profit);
+      } else {
+        buyPrice = prices[i];
+      }
+    }
+
+    return maxProfit;
+  }
+
+  // ARRAYS - Assignment //--//
+  // Question - 1
+  public static boolean twiceInArray(int[] nums) {
+    for (int i = 0; i < nums.length; i++) {
+      for (int j = i + 1; j < nums.length; j++) {
+        if (nums[i] == nums[j]) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
   public static void main(String[] args) {
     // ---- NUMBER SEARCH
     // int[] number = { 2, 4, 6, 8, 10, 12, 14, 16, 18 };
@@ -250,8 +280,16 @@ public class Array {
     // System.out.println("MAX = " + kadaneAlgorithm(arr));
 
     // TRAPPING RAIN WATHER
-    // int height[] = { 4, 2, 0, 6, 3, 2, 5 };
+    // int[] height = { 4, 2, 0, 6, 3, 2, 5 };
     // System.out.println(trappedRainWather(height));
 
-  
+    // BUY & STOCKS SELL
+    // int[] prices = { 7, 1, 5, 3, 6, 4 };
+    // System.out.println(buyAndSellStocks(prices));
+
+    // ARRAYS - Assignment //--//
+    // Question - 1 
+    int[] nums = { 1, 2, 3, 4 };
+    System.out.println(twiceInArray(nums));
+  }
 }
