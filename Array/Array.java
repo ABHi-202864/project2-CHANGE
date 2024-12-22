@@ -201,6 +201,7 @@ public class Array {
     return trappedWather;
   }
 
+  // BUY & STOCKS SELL
   public static int buyAndSellStocks(int[] prices) {
     int buyPrice = Integer.MAX_VALUE;
     int maxProfit = 0;
@@ -229,6 +230,57 @@ public class Array {
     }
 
     return false;
+  }
+
+  // Questions - 2
+  public static int findTarget(int[] nums, int target) {
+    for (int i = 0; i < nums.length; i++) {
+      if (nums[i] == target) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  // Questions - 3
+  public static int stocksProblem(int[] prices) {
+    int buyPrice = Integer.MAX_VALUE;
+    int maxProfit = 0;
+
+    for (int i = 0; i < prices.length; i++) {
+      if (buyPrice < prices[i]) {
+        int profit = prices[i] - buyPrice;
+        maxProfit = Math.max(maxProfit, profit);
+      } else {
+        buyPrice = prices[i];
+      }
+    }
+
+    return maxProfit;
+  }
+
+  // Question - 4
+  public static int rainProblem(int[] height) {
+    int[] leftMax = new int[height.length];
+    leftMax[0] = height[0];
+    for (int i = 1; i < height.length; i++) {
+      leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+    }
+
+    int[] rightMax = new int[height.length];
+    rightMax[height.length - 1] = height[height.length - 1];
+    for (int i = height.length - 2; i >= 0; i--) {
+      rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+    }
+
+    int trappedWather = 0;
+    for (int i = 0; i < height.length; i++) {
+      int watherLevel = Math.min(leftMax[i], rightMax[i]);
+      trappedWather += watherLevel - height[i];
+    }
+
+    return trappedWather;
   }
 
   public static void main(String[] args) {
@@ -288,8 +340,20 @@ public class Array {
     // System.out.println(buyAndSellStocks(prices));
 
     // ARRAYS - Assignment //--//
-    // Question - 1 
-    int[] nums = { 1, 2, 3, 4 };
-    System.out.println(twiceInArray(nums));
+    // Question - 1
+    // int[] nums = { 1, 2, 3, 4 };
+    // System.out.println(twiceInArray(nums));
+
+    // Question - 2
+    // int[] nums = { 4, 5, 6, 7, 0, 1, 2 };
+    // System.out.println(findTarget(nums, 3));
+
+    // Question - 3
+    // int[] prices = { 7, 1, 5, 3, 6, 4 };
+    // System.out.println(stocksProblem(prices));
+
+    // Question - 4
+    int[] height = { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 };
+    System.out.println(rainProblem(height));
   }
 }
