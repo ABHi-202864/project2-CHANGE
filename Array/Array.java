@@ -262,25 +262,21 @@ public class Array {
 
   // Question - 4
   public static int rainProblem(int[] height) {
-    int[] leftMax = new int[height.length];
-    leftMax[0] = height[0];
-    for (int i = 1; i < height.length; i++) {
-      leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+    int res = 0, l = 0, r = height.length - 1, lMax = height[l], rMax = height[r];
+
+    while (l < r) {
+      if (lMax < rMax) {
+        l++;
+        lMax = Math.max(lMax, height[l]);
+        res += lMax - height[l];
+      } else {
+        r++;
+        rMax = Math.max(rMax, height[r]);
+        res += rMax - height[r];
+      }
     }
 
-    int[] rightMax = new int[height.length];
-    rightMax[height.length - 1] = height[height.length - 1];
-    for (int i = height.length - 2; i >= 0; i--) {
-      rightMax[i] = Math.max(rightMax[i + 1], height[i]);
-    }
-
-    int trappedWather = 0;
-    for (int i = 0; i < height.length; i++) {
-      int watherLevel = Math.min(leftMax[i], rightMax[i]);
-      trappedWather += watherLevel - height[i];
-    }
-
-    return trappedWather;
+    return res;
   }
 
   public static void main(String[] args) {
@@ -353,7 +349,7 @@ public class Array {
     // System.out.println(stocksProblem(prices));
 
     // Question - 4
-    int[] height = { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 };
-    System.out.println(rainProblem(height));
+    int[] height = { 4, 2, 0, 3, 2, 5 };
+    System.out.println(rainProblem2(height));
   }
 }
